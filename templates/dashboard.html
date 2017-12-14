@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Your Stock Profile</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Custom styles for this template -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/shop-homepage.css' %}"/>
+
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container">
+        <strong><a class="navbar-brand" href="/">Pocket Stock</a></strong>
+        <div class="col-sm-2 col-md-2">
+    </div>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item">
+              <form class="navbar-form" action="/searchResults" role="search">
+                <div class="input-group">
+                   <!-- Changes -->
+                  <select class="selectpicker show-tick" data-style="btn-success" name="category">
+                        <option value="All">All</option>
+                        <option value="Technology">Technology</option>
+                      <option value="Consumer Goods">Consumer</option>
+                       <option value="Financial">Financial</option>
+                       <option value="Basic Materials">Basic Materials</option>
+                       <option value="Services">Services</option>
+
+                  </select>
+                   <!-- Changes end -->
+                  <input id="tags" type="text" class="form-control navbar-search-box" placeholder="Search" name="query" autocomplete="on">
+                  <input type="submit" class="btn btn-outline-success" value="Search">
+                </div>
+              </form>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/create_transaction">Add
+                <!-- <span class="sr-only">(current)</span> -->
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/chat/">Chat</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/forum/">Forum</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/prediction/">Predictions</a>
+            </li>
+             {% if user.is_authenticated %}
+                <!-- <li class="nav-item ">User: {{ user.get_username }}</li> -->
+                <span class="navbar-text">{{ user.get_username }}</span>
+                <li class="nav-item "><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+            {% endif %}
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </nav>
+    {% block content%}
+
+    <!-- Page Content -->
+    <div class="container">
+      <h1 class="text-center default-head">Welcome {{ user.get_username }}!</h1>
+        <h4>Your Investments</h4>
+
+        <div class="row card-container" style="padding-top: 30px;">
+        <!-- /.col-lg-3 -->
+          <div class="col-lg-12">
+
+          <div class="row stock-content">
+
+            <!-- Card for adding more transactions -->
+            <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100" style="background-color:#ecedea;">
+                <a href="#"><div class="number-size-panel"></div></a>
+                <div class="card-body">
+                  <a href="{% url 'create_transaction' %}">
+                    <div class="circle">
+                  </div></a>
+                </div>
+              </div>
+            </div>
+            <!-- Procedurally generated stock cards -->
+              {% for obj in transactions %}
+              <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100" style="background-color:#ecedea;">
+                  <a href="#"><div class="number-size-panel"> <span class="card-text1">{{ obj.percent }}%</span></div></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href={{ obj.link }}>{{ obj.fullname }}</a>
+                    </h4>
+                    <h5>Current Asset Value: ${{ obj.valuation }}</h5>
+                    <p class="card-text"></p>
+                  </div>
+                  <div class="card-footer">
+                    <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                    Quantity Purchased: {{ obj.qty }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+
+          </div>
+      <!-- /.row -->
+        </div>
+      </div>
+
+      <div class="modal"><!-- Place at bottom of page --></div>
+
+    </div>
+    <!-- /.container -->
+{%endblock%}
+    <!-- Footer -->
+{% block footer %}
+<footer style="height: 100px; position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+
+{% endblock %}
+
+    <!-- Bootstrap core JavaScript -->
+
+
+    {% block scripts %}
+    {% load staticfiles %}
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+    <script>
+      $body = $("body");
+
+      $(document).ready(function() {
+                 $( function() {
+                        var availableTags=[];
+                       $.ajax({url: "/getCompanies", success: function(result){
+                                console.log(result);
+
+                                $.each(result, function(key,value) {
+                                    availableTags.push(value);
+                                });
+                            }});
+
+                        $( "#tags" ).autocomplete({
+                          source: availableTags
+                        });
+                 } );
+                $.ajax({
+                url : "/getDashBoardData/", // the endpoint
+                type : "POST", // http method
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                // handle a successful response
+                success : function(result) {
+                        console.log("success"); // another sanity check
+                        if(result != 'failure'){
+                            var htmlCode = '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100" style="background-color:#ecedea;"><a href="#"><div class="number-size-panel"></div></a><div class="card-body"><a href="{% url 'create_transaction' %}"><div class="circle"></div></a></div></div></div>';
+                            $.each(result, function(key,value) {
+                                htmlCode = htmlCode + '<div class="col-lg-4 col-md-6 mb-4"><div class="card h-100" style="background-color:#ecedea;"><a href="' + value["link"]+'"><div class="number-size-panel"> <span class="card-text1">'+ value["percent"] + '%</span></div></a><div class="card-body"><h4 class="card-title"><a href=' + value["link"] + '>'+value["fullname"]+'</a></h4><h5>Current Asset Value: $' + value["valuation"]+'</h5><p class="card-text"></p></div><div class="card-footer">Quantity Purchased: '+value["qty"]+'</div></div></div>';
+                            });
+                            console.log(htmlCode);
+                            $( ".row" ).html(htmlCode);
+                        }
+                        else{
+                            console.log("api call failed");
+                            console.log(result);
+                        }
+
+                },
+              // handle a non-successful response
+              error : function(xhr,errmsg,err) {
+                  console.log("error"); // provide a bit more info about the error to the console
+              }
+      });
+      });
+    </script>
+
+
+  {% endblock %}
+  </body>
+
+</html>

@@ -1,0 +1,69 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+    <div class="container" style="margin-top:50px;">
+
+    <div class="row">
+        <div class="col-md-12">
+          <form action="/forum/" method="POST">
+               {% csrf_token %}
+                <h3 style="padding-left:10px;">Create Post</h3>
+                <div class="new-post-block" style="background-color:#F8F9FA; width:70%;">
+                    <div class="new-post-block-child" style="margin-top:15px;"><input id="title" class="form-control" style="width:300px" name="posttitle" type="text" placeholder="Post Title" required></div>
+                    <div class="new-post-block-child" style="margin-top:15px;"><textarea  name="postbody" class="form-control" rows="4" cols="100" placeholder="Post Body.."></textarea></div>
+                    <div class="new-post-block-child"><input type="submit" class="btn-sub" value="Post"></div>
+                </div>
+          </form>
+          <h3 style="padding-top:20px; padding-left:10px;">Posts</h3>
+            <div>
+
+              {% for post in posts %}
+                  <div class="post-border" >
+                      <div class="post-title">{{ post.messageTitle }}</div>
+                      <div class="post-body">{{ post.messageBody }}</div>
+                      <div class="post-details">Posted By: {{ post.username }} &nbsp;&nbsp; On: {{post.date}}</div>
+                  </div>
+              {% endfor %}
+
+          </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+  <footer class="footer" style="position:fixed; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+{% endblock %}
+
+{% block scripts%}
+ {% load staticfiles %}
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+
+{% endblock %}

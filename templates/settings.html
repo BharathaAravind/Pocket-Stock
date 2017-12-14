@@ -1,0 +1,59 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+    <h1 class="text-center" style="margin-top:100px;">Settings</h1>
+    <div class="container">
+
+    <div class="row">
+    <div style="margin:35px auto;">
+    <h3>Facebook</h3>
+    {% if facebook_login %}
+        <h5>Connected as <a href="https://facebook.com/{{ facebook_login.extra_data.id }}/" target="_blank">{{ facebook_login.extra_data.id }}</a></h5>
+        {% if can_disconnect %}
+            <form method="post" action="{% url 'social:disconnect' 'facebook' %}">
+            {% csrf_token %}
+                <br>
+                <br>
+                <input type="submit" class="btn btn-default btn-md" value="Disconnect from Facebook" />
+            </form>
+        {% else %}
+          <br>
+            <input type="button" disabled class="btn btn-default btn-md" value="Disconnect from Facebook" />
+            <br>
+            <br>
+            <h5 style="color: red">You must <a href="{% url 'password' %}">define a password</a> for your account before disconnecting from Facebook.</h5>
+        {% endif %}
+    {% else %}
+        <br>
+        <br>
+        <a href="{% url 'social:begin' 'facebook' %}">Connect to Facebook.</a>
+    {% endif %}
+</div>
+</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+  <footer style="position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+{% endblock %}

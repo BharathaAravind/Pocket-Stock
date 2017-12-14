@@ -1,0 +1,111 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+
+<div  class="container">
+  <h4 class="text-center" style="margin-top:95px;">Signup here!</h4>
+  <div class="row">
+    <div style="margin: 10px auto; border: 1px solid black; border-radius:7px; box-shadow: 10px 10px 20px #888888; width: 70%; ; background-color: #F8F9FA;">
+            <!-- <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+              <br>
+                <input type="submit" class="btn btn-default btn-md" value="Sign Up" />
+            </form> -->
+        <div style="width: 50%; margin:0 auto; padding-top: 25px; padding-bottom: 15px;">
+        <form class="form-group" method="post">
+              {% csrf_token %}
+              <div class="form-inline">
+              <label  for="first_name" class="cols-sm-2 control-label">First Name</label>
+              <div style="margin-left:70px;">
+                  <input type="text" class="form-control" name="first_name" id="first_name"  placeholder="Enter your First Name" required/>
+                </div>
+
+              </div>
+              <br>
+
+              <div class="form-inline">
+                <label for="last_name" class="cols-sm-2 control-label">Last Name</label>
+                <div style="margin-left:74px;">
+                  <input type="text" class="form-control" name="last_name" id="last_name"  placeholder="Enter your Last Name" required/>
+                </div>
+              </div>
+              <br>
+
+              <div class="form-inline">
+                <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                <div style="margin-left:74px">
+                  <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" required/>
+                </div>
+                <div class="status">{{form.email.errors}}</div>
+             </div>
+             <br>
+             <div class="form-inline">
+                 <label for="username" class="cols-sm-2 control-label">Username</label>
+
+                  <div style="margin-left:77px">
+                     <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" required/>
+                  </div>
+                  <div class="status">{{form.username.errors}}</div>
+
+             </div>
+             <br>
+               <div class="form-inline">
+               <label for="password1" class=" control-label">Password</label>
+               <div style="margin-left:80px">
+                  <input type="password" class="form-control" name="password1" id="password1"  placeholder="Enter your Password" required/>
+               </div>
+               <div class="status">{{form.password1.errors}}</div>
+
+
+            </div>
+            <br>
+            <div class="form-inline">
+               <label for="password2" class="cols-sm-2 control-label"> Confirm Password</label>
+               <div style="margin-left:20px">
+               <input type="password" class="form-control input-sm" name="password2" id="password2"  placeholder="Confirm your Password" required/>
+             </div>
+               <div class="status">{{form.password2.errors}}</div>
+
+            </div>
+            <br>
+                <div class="form-group form-inline"  style="width: 40%; margin:0 auto;" >
+                 <button type="submit"class="btn btn-default btn-md login-button">Register</button>
+                </div>
+             </form>
+
+
+        </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block footer %}
+  <footer style="position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+
+{% endblock %}

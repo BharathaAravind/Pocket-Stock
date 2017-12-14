@@ -1,0 +1,132 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+<div  class="container">
+  <h4 class="text-center" style="margin-top:70px">Add Investments</h4>
+  <div class="row">
+  <div class="col-7" style=" margin: 10px auto;border: 1px solid black; border-radius:7px; box-shadow: 10px 10px 20px #888888; width: 40%; ; background-color: #F8F9FA;">
+    <div style="width: 70%; margin:0 auto; padding-top: 35px; padding-bottom: 15px;">
+    <form class="form-group" method='post'>
+        {% csrf_token %}
+        <!--  -->
+        <!-- <table>
+        {{ form.as_table }}
+      </table> -->
+      <div class="form-inline">
+        <label  for="amount_Spent" class="cols-sm-2 control-label">Amount Spent</label>
+        <div style="margin-left:50px;">
+          <input type="number" class="form-control" name="amountSpent" id="amount_Spent" style="width: 250px"placeholder="Enter Amount Spent" required/>
+        </div>
+
+      </div>
+      <br>
+
+      <div class="form-inline">
+        <label for="quantity" class="cols-sm-2 control-label">Quantity Purchased</label>
+        <div style="margin-left:15px;">
+          <input type="number" class="form-control" name="numberPurchased" id="quantity" style="width: 250px" placeholder="Enter quantity purchased" required/>
+        </div>
+      </div>
+      <br>
+
+      <div class="form-inline">
+        <label for="date" class="cols-sm-2 control-label">Date Purchased</label>
+        <div style="margin-left:45px;">
+          <input type="date" class="form-control" min="2007-01-01" name="datePurchased" id="date" style="width: 250px" placeholder="" required/>
+        </div>
+        <div class="status">{{form.datePurchased.errors}}</div>
+     </div>
+
+     <br>
+     <div class="form-inline">
+       <label for="whichStock" class="cols-sm-2 control-label"> Name of the Stock</label>
+       <div style="margin-left:25px;">
+     <div class="input-group">
+        <!-- Changes -->
+       <select class="form-control" data-style="btn-success" name="whichStock" style="width: 250px">
+        <option value="">---------</option>
+
+        <option value="MSFT">Microsoft</option>
+
+        <option value="JPM">JPMorgan Chase &amp; Co.</option>
+
+        <option value="FB">Facebook</option>
+
+        <option value="GS">Goldman Sachs Group Inc</option>
+
+        <option value="GOOGL">Alphabet Inc</option>
+
+        <option value="TWTR">Twitter</option>
+
+        <option value="WFC">Wells Fargo &amp; Co</option>
+
+        <option value="XOM">Exxon Mobil Corporation</option>
+
+        <option value="CRM">Salesforce.com</option>
+
+        <option value="ORCL">Oracle Corporation</option>
+
+        <option value="WMT">Walmart</option>
+
+        <option value="AAPL">Apple Inc</option>
+      </select>
+      </div>
+      </div>
+      </div>
+    <br>
+         <div class="form-group form-inline"  style="width: 40%; margin:0 auto;" >
+          <button type="submit"class="btn btn-default btn-md login-button">Submit</button>
+         </div>
+     <!-- <div class="input-group">
+
+       <select class="selectpicker show-tick" data-style="btn-success" name="whichStock">
+
+             <option value="">Select Stock</option> -->
+
+
+        <!-- <div style="text-align:center;">
+        <input type="submit" class="btn btn-default btn-md" value="Submit" />
+      </div> -->
+    </form>
+  </div>
+</div>
+</div>
+</div>
+{% endblock %}
+{% block footer %}
+<footer style="height: 100px; position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts%}
+ {% load staticfiles %}
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+
+{% endblock %}

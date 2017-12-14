@@ -1,0 +1,17 @@
+body {
+    text-align: center;
+    padding-top: 75px;
+}
+
+iframe {
+    width: 100%;
+    min-width: 304px;
+    max-width: 620px;
+    height: 330px;
+}
+
+footer{
+   position:absolute !important;
+   bottom:0!important;
+   text-align:left !important;
+}

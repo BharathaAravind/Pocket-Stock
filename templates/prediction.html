@@ -1,0 +1,126 @@
+{% extends 'dashboard.html' %}
+
+    {% block content%}
+
+    <!-- Page Content -->
+    <div class="container" style="margin-top:50px;">
+     <!-- <h2>Predictions</h2> -->
+
+      <!-- <h1>{{ transactions }}</h1>
+
+      {% for obj in transactions %}
+        <h1>{{ obj.valuation }}</h1> -->
+        <!-- <h1>Stuff</h1> -->
+      <!-- {% endfor %} -->
+
+      <div class="row card-container" style="padding-top: 5px;">
+        <!-- /.col-lg-3 -->
+        <div class="col-lg-12">
+
+
+          <div class="row stock-content">
+            <!-- Procedurally generated stock cards -->
+
+            {% for k,v in predictions.iteritems %}
+
+                {% if "Buy" in v.0 %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                 <div class="card h-100" style="background-color: #ecedea">
+                 <div class="number-size-panel"> <span class="card-text1">{{k}}</span></div></a>
+                 <div class="card-body">
+                   <h5>Last Closing Value: ${{v.2}}</h5>
+                   <h5>Value after 7 days: ${{v.1}}</h5>
+
+                   <!-- <p class="card-text"> Todays Value : {{v.2}}</p> -->
+                 </div>
+                 <div class="card-footer"  style ="background-color: #76cc64" >
+                   <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+                 <h5>{{v.0}}</h5>
+                 </div>
+               </div>
+             </div>
+             {% elif "Sell" in v.0 %}
+             <div class="col-lg-4 col-md-6 mb-4">
+              <div class="card h-100" style="background-color: #ecedea">
+               <div class="number-size-panel"> <span class="card-text1">{{k}}</span></div></a>
+              <div class="card-body">
+                <h5>Last Closing Value : ${{v.2}}</h5>
+                <h5>Value after 7 days: ${{v.1}}</h5>
+              </div>
+              <div class="card-footer" style ="background-color: #f33636">
+                <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+               <h5>{{v.0}}</h5>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="col-lg-4 col-md-6 mb-4">
+           <div class="card h-100" style="background-color: #ecedea">
+            <div class="number-size-panel"> <span class="card-text1">{{k}}</span></div></a>
+           <div class="card-body">
+             <h5>Last Closing Value: ${{v.2}}</h5>
+             <h5>Value after 7 days: ${{v.1}}</h5>
+           </div>
+            <div class="card-footer" style ="background-color: #76cc64">
+             <!-- <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small> -->
+            <h5>{{v.0}}</h5>
+           </div>
+         </div>
+       </div>
+
+          {% endif %}
+
+
+
+
+            {% endfor %}
+            </div>
+
+
+          <!-- /.row -->
+
+        </div>
+        <!-- /.col-lg-9 -->
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+{%endblock%}
+    <!-- Footer -->
+{% block footer %}
+<footer style="height: 100px; position:absolute; bottom:0;">
+  <div class="container">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <a href="/">Home</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#about">About</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#services">Services</a>
+      </li>
+      <li class="footer-menu-divider list-inline-item">&sdot;</li>
+      <li class="list-inline-item">
+        <a href="#contact">Contact</a>
+      </li>
+    </ul>
+    <p class="copyright text-muted small">Copyright &copy; Pocket Stock 2017. All Rights Reserved</p>
+  </div>
+</footer>
+{% endblock %}
+
+{% block scripts%}
+ {% load staticfiles %}
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
+
+{% endblock %}
